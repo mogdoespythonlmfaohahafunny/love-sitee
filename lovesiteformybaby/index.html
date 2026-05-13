@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for sanam my beautiful wife 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff);
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
+    animation: floatBg 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatBg {
+    from { transform: translate(-10%, -10%); }
+    to { transform: translate(10%, 10%); }
+}
+
+.card {
+    position: relative;
+    background: rgba(0,0,0,0.35);
+    padding: 22px;
+    border-radius: 22px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+h1 { font-size: 22px; }
+
+p {
+    font-size: 16px;
+    min-height: 70px;
+}
+
+button {
+    margin: 6px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    background: white;
+    color: #ff4f7b;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#main, #gift {
+    display: none;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+}
+
+/* 💥 full screen explosion */
+.explosion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255,255,255,0.1);
+    z-index: 999;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: boom 1.2s ease-out forwards;
+}
+
+@keyframes boom {
+    0% {
+        transform: translate(0,0) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(1.5);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="voice">
+    <source src="forbaby.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+<!-- 🔓 LOCK -->
+<div id="lock">
+    <h1>💖 enter code</h1>
+    <p>hint: my phone password :></p>
+    <input id="code" placeholder="******">
+    <br><br>
+    <button onclick="unlock()">unlock 💌</button>
+</div>
+
+<!-- 💖 MAIN -->
+<div id="main">
+    <h1>hey sanam 💖</h1>
+
+    <p id="msg"></p>
+
+    <p id="days"></p>
+
+    <button onclick="nextMessage()">message 💌</button>
+    <button onclick="playVoice()">hear something 🎙️</button>
+    <button onclick="explodeHearts()">💥</button>
+
+    <div id="gift">
+        <p id="giftText">will you marry me? 💖</p>
+        <button onclick="yes()">yes 💖</button>
+        <button onclick="no()">no and im a dumb stinkface toot butthead</button>
+    </div>
+</div>
+
+</div>
+
+<script>
+
+const messages = [
+    "i’m really sorry for earlier",
+    "sanam you mean more to me than words can say",
+    "you make everything feel softer",
+    "i’m really lucky to have you",
+    "you’re genuinely special to me",
+    "i care about you a lot"
+];
+
+let i = 0;
+let typing = false;
+
+function type(text) {
+    if (typing) return;
+    typing = true;
+
+    let el = document.getElementById("msg");
+    el.innerHTML = "";
+    let x = 0;
+
+    let t = setInterval(() => {
+        el.innerHTML += text[x];
+        x++;
+        if (x >= text.length) {
+            clearInterval(t);
+            typing = false;
+        }
+    }, 25);
+}
+
+function nextMessage() {
+    type(messages[i]);
+    i = (i + 1) % messages.length;
+}
+
+/* 🔓 unlock */
+function unlock() {
+    if (document.getElementById("code").value === "071008") {
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        start();
+    } else {
+        alert("wrong code :<");
+    }
+}
+
+/* 🎙️ voice (forbaby.mp3) */
+function playVoice() {
+    const v = document.getElementById("voice");
+    v.currentTime = 0;
+    v.play().catch(()=>{});
+}
+
+/* 📅 days */
+function calcDays() {
+    const start = new Date("2025-10-17");
+    const now = new Date();
+    const diff = Math.floor((now - start)/(1000*60*60*24));
+    document.getElementById("days").innerText =
+        `we've been together for ${diff} days 💖`;
+}
+
+/* 💥 HEART EXPLOSION */
+function explodeHearts() {
+    const container = document.createElement("div");
+    container.className = "explosion";
+    document.body.appendChild(container);
+
+    for (let i = 0; i < 35; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = "💖";
+
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = 200 + Math.random() * 200;
+
+        const x = Math.cos(angle) * radius + "px";
+        const y = Math.sin(angle) * radius + "px";
+
+        h.style.setProperty("--x", x);
+        h.style.setProperty("--y", y);
+
+        h.style.left = "50%";
+        h.style.top = "50%";
+
+        container.appendChild(h);
+    }
+
+    setTimeout(() => container.remove(), 1200);
+}
+
+/* 💖 gift */
+function yes() {
+    document.getElementById("giftText").innerText =
+        "GOOD BABYYYYYYYYYY NOW I TAKE U TO CANADA AND WE LIVE LONG AND HAPPY TOGETHER YDYAYSYAYYAYAYAYA I TAKE CARE OF BABY 💖💖💖💖💖💖💖";
+}
+
+function no() {
+    document.getElementById("giftText").innerText =
+        "wah press yes before i fucking beat you up stupid tootface";
+}
+
+/* 🚀 start */
+function start() {
+    calcDays();
+    type("tap for a message 💖");
+}
+</script>
+
+</body>
+</html>
